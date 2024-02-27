@@ -117,7 +117,7 @@ const generateMakeFile = (
       {
         targets: ['_apply', '_destroy'],
         prerequisites: ['_% :', '_init'],
-        recipe: ['terraform $(*)' + varFileArgument],
+        recipe: ['terraform $(*) -auto-approve' + varFileArgument],
       },
       {
         targets: ['_plan'],
