@@ -9,7 +9,11 @@ const project = new BunTypescript({
   repository: 'https://github.com/Liam-Johnston/projen-terraform-component',
   peerDeps: ['projen', 'constructs'],
   authorName: 'Liam Johnston',
+  skipRunCommand: true,
   tsconfigFilename: 'tsconfig.dev.json',
+  appEnvironmentVariables: {
+    NPM_TOKEN: "${NPM_TOKEN:-}"
+  }
 });
 
 project.gitignore.addPatterns('tsconfig.json', '.jsii', 'lib/', 'todo');
@@ -102,7 +106,6 @@ new GitHubCICDComponent(project, {
 
 project.package.setScript('bump', 'bunx projen bump');
 project.package.setScript('unbump', 'bunx projen bump');
-
 
 const packageFile = await Bun.file(project.package.file.absolutePath).json();
 project.package.addVersion(packageFile.version)
