@@ -1,10 +1,19 @@
 import { IgnoreFile, Version } from 'projen';
 
 import { BunTypescript } from 'bun-ts-projen';
-import { GitHubCICDComponent } from 'projen-cicd-component'
+import { GitHubCICDComponent } from 'projen-cicd-component';
 
 const project = new BunTypescript({
-  devDeps: ['bun-ts-projen', 'projen-cicd-component'],
+  devDeps: [
+    'bun-ts-projen',
+    'projen-cicd-component',
+    'jsii',
+    'jsii-diff',
+    'jsii-docgen',
+    'jsii-pacmak',
+    'jsii-rosetta',
+    'projen',
+  ],
   name: 'projen-terraform-component',
   repository: 'https://github.com/Liam-Johnston/projen-terraform-component',
   peerDeps: ['projen', 'constructs'],
@@ -12,20 +21,11 @@ const project = new BunTypescript({
   skipRunCommand: true,
   tsconfigFilename: 'tsconfig.dev.json',
   appEnvironmentVariables: {
-    NPM_TOKEN: "${NPM_TOKEN:-}"
-  }
+    NPM_TOKEN: '${NPM_TOKEN:-}',
+  },
 });
 
 project.gitignore.addPatterns('tsconfig.json', '.jsii', 'lib/', 'todo');
-
-project.package.addDevDeps(
-  'jsii',
-  'jsii-diff',
-  'jsii-docgen',
-  'jsii-pacmak',
-  'jsii-rosetta',
-  'projen',
-);
 
 project.package.addField('types', './lib/index.d.ts');
 
@@ -108,7 +108,7 @@ project.package.setScript('bump', 'bunx projen bump');
 project.package.setScript('unbump', 'bunx projen bump');
 
 const packageFile = await Bun.file(project.package.file.absolutePath).json();
-project.package.addVersion(packageFile.version)
+project.package.addVersion(packageFile.version);
 
 project.makefile.addRule({
   targets: ['bump'],
