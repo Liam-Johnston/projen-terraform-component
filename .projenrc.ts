@@ -49,6 +49,10 @@ project.makefile.addRule({
   recipe: ['bun run build'],
 });
 
+project.makefile.addRule({
+  targets: ['install'],
+  recipe: ['docker compose run --rm app bun i'],
+});
 
 new Version(project, {
   versionInputFile: project.package.file.path,

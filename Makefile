@@ -10,6 +10,9 @@ run:
 build:
 	bun run build
 
+install:
+	docker compose run --rm app bun i
+
 publish:
 	docker compose run --rm app npm publish
 
