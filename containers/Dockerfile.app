@@ -3,7 +3,9 @@ FROM oven/bun:${BUN_VERSION}
 
 RUN apk add --no-cache \
   make \
-  bash
+  bash \
+  git \
+  npm
 
 WORKDIR /app
 
