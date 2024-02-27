@@ -8,7 +8,7 @@ run:
 	docker compose run --rm app bun start
 
 build:
-	bun run build
+	docker compose run --rm app bun run build
 
 install:
 	docker compose run --rm app bun i
