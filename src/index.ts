@@ -115,9 +115,14 @@ const generateMakeFile = (
         ],
       },
       {
-        targets: ['_plan', '_apply', '_destroy'],
+        targets: ['_apply', '_destroy'],
         prerequisites: ['_% :', '_init'],
         recipe: ['terraform $(*)' + varFileArgument],
+      },
+      {
+        targets: ['_plan'],
+        prerequisites: ['_init'],
+        recipe: ['terraform plan' + varFileArgument],
       },
       {
         targets: ['_tf_fmt'],
